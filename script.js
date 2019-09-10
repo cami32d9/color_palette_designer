@@ -1,33 +1,43 @@
-// ----- DISCLAIMER -----
-/* This code, and design, isn't pretty. I know!
-Nor does it match my call graph... at all. Yet.
-It'll get better in the second part of the assignment,
-when I've had more time. I promise.
-Main point: it works. */
+"use strict";
+
+document.addEventListener("DOMContentLoaded", start);
 
 
 // ----- VARIABLES -----
 
-const input = document.querySelector("input");
+const colorInput = document.querySelector("input");
 let color;
 
 
-// ----- GETTING COLOR -----
+// ----- START -----
 
-input.addEventListener("input", function() {
-    color = input.value;
-    getColors(color);
-});
+function start() {
+    color = colorInput.value;
+    showHex(color);
+    getRGB(color);
+    getInputHex();
+}
 
-function getColors(color) {
-    document.querySelector(".hex").textContent = color;
-    let r = parseInt(color.substring(1,3), 16);
-    let g = parseInt(color.substring(3,5), 16);
-    let b = parseInt(color.substring(5,7), 16);
 
-    console.log("RGB " + r, g, b);
-    document.querySelector(".rgb").textContent = `R: ${r} | G: ${g} | B: ${b}`;
+// ----- GET COLOR CODES -----
 
+function getInputHex() {
+    colorInput.addEventListener("input", function() {
+        color = colorInput.value;
+        showHex(color);
+        getRGB(color);
+    });
+}
+
+function getRGB(color) {
+    let r = parseInt(color.substring(1, 3), 16);
+    let g = parseInt(color.substring(3, 5), 16);
+    let b = parseInt(color.substring(5, 7), 16);
+    showRGB(r, g, b);
+    getHSL(r, g, b);
+}
+
+function getHSL(r, g, b) {
     r /= 255;
     g /= 255;
     b /= 255;
@@ -63,10 +73,26 @@ function getColors(color) {
     s *= 100;
     l *= 100;
 
+    // Round to get even numbers
     h = Math.round(h);
     s = Math.round(s);
     l = Math.round(l);
 
-    console.log("hsl", h, s, l); // just for testing
+    showHSL(h, s, l);
+}
+
+
+// ----- SHOW COLOR CODES -----
+
+function showHex() {
+    document.querySelector(".hex").textContent = color;
+}
+
+function showRGB(r, g, b) {
+    document.querySelector(".rgb").textContent = `R: ${r} | G: ${g} | B: ${b}`;
+}
+
+function showHSL(h, s, l) {
+    // Adds degree and percent symbols for precision
     document.querySelector(".hsl").textContent = `H: ${h}° | S: ${s}% | L: ${l}%`;
 }
