@@ -40,3 +40,7 @@ input {
 .display_value {
     height: 1rem;
 }
+
+.code_display {
+    padding: 5px;
+}

@@ -11,14 +11,20 @@ const colorInput = document.querySelector("input");
 // ----- START -----
 
 function start() {
+    // Defines destination box of original
     let box = document.querySelector(`.original_color`);
+
+    // Finds hex code at load
     let hex = colorInput.value;
+
+    // Shows the hex code at load, gets the RGB code a load, and starts the process of reading input on event
     showHexCode(box, hex);
     getRGBFromHex(box, hex);
     getInputHex(box);
 }
 
-// ----- GET COLOR CODES -----
+
+// ----- GET COLOR CODES FOR INPUT -----
 
 function getInputHex(box) {
     colorInput.addEventListener("input", function () {
@@ -29,14 +35,18 @@ function getInputHex(box) {
 }
 
 function getRGBFromHex(box, hex) {
+    // Converts hex to r, g and b in numbers
     let r = parseInt(hex.substring(1, 3), 16);
     let g = parseInt(hex.substring(3, 5), 16);
     let b = parseInt(hex.substring(5, 7), 16);
+
     showRGBCode(box, r, g, b);
     getHSLFromRGB(box, r, g, b);
 }
 
 function getHSLFromRGB(box, r, g, b) {
+    // Converts rgb to hsl.
+    // Code from assignment on fronter.
     r /= 255;
     g /= 255;
     b /= 255;
@@ -76,8 +86,9 @@ function getHSLFromRGB(box, r, g, b) {
     s = Math.round(s);
     l = Math.round(l);
 
-    // showHSLCode(h, s, l);
     showHSLCode(box, h, s, l);
+
+    // Starts process of finding analogous colors
     getAnalogousHSL(h, s, l);
 }
 
@@ -85,6 +96,9 @@ function getHSLFromRGB(box, r, g, b) {
 // ----- GET ANALOGOUS COLOR CODES -----
 
 function getAnalogousHSL(h, s, l) {
+    // Starts the process for each of the four colors that should be defined.
+    // The first parameter, dest, is the number of the box, defined in HTML.
+    // The second parameter, h (+/- x) is the h-value from the original, with 20 degrees' difference for each color.
     processAnalogousHSL(1, h - 40, s, l);
     processAnalogousHSL(2, h - 20, s, l);
     processAnalogousHSL(3, h + 20, s, l);
@@ -92,13 +106,19 @@ function getAnalogousHSL(h, s, l) {
 }
 
 function processAnalogousHSL(dest, h, s, l) {
+    // Defines destination box for the alternative colors, using the dest given as parameter.
     let box = document.querySelector(`.alternative${dest}`);
+
+    // Only needs the parameters given in getAnalogousHSL function, to output in DOM.
     showAnalogousColor(box, h, s, l);
+    showHSLCode(box, h, s, l);
+
     getAnalogousRGB(box, h, s, l);
 }
 
 
 function getAnalogousRGB(box, h, s, l) {
+    // Converts HSL to RGB.
     // Function 'HSLtoRGB' from:
     // https://github.com/scripturadesign/color/blob/303480c970bf74956e43166410cbdd26621abdc7/src/functions.php#L120
 
@@ -148,7 +168,6 @@ function getHexFromRGB(box, r, g, b) {
 
 function showAnalogousColor(box, h, s, l) {
     box.querySelector(".alternative_color").style.backgroundColor = `hsl(${h}, ${s}%, ${l}%`;
-    showHSLCode(box, h, s, l);
 }
 
 // ----- SHOW COLOR CODES -----
