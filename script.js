@@ -6,43 +6,37 @@ document.addEventListener("DOMContentLoaded", start);
 // ----- VARIABLES -----
 
 const colorInput = document.querySelector("input");
-const alternativeColors = document.querySelectorAll(".alternative_color");
-
-let color;
 
 
 // ----- START -----
 
 function start() {
     let box = document.querySelector(`.original_color`);
-    color = colorInput.value;
-    showHexCode(box);
-    getRGBFromHex(color);
-    getInputHex();
+    let hex = colorInput.value;
+    showHexCode(box, hex);
+    getRGBFromHex(box, hex);
+    getInputHex(box);
 }
 
 // ----- GET COLOR CODES -----
 
-function getInputHex() {
-    let box = document.querySelector(`.original_color`);
+function getInputHex(box) {
     colorInput.addEventListener("input", function () {
-        color = colorInput.value;
-        showHexCode(box);
-        getRGBFromHex(color);
+        let hex = colorInput.value;
+        showHexCode(box, hex);
+        getRGBFromHex(box, hex);
     });
 }
 
-function getRGBFromHex(color) {
-    let box = document.querySelector(`.original_color`);
-    let r = parseInt(color.substring(1, 3), 16);
-    let g = parseInt(color.substring(3, 5), 16);
-    let b = parseInt(color.substring(5, 7), 16);
+function getRGBFromHex(box, hex) {
+    let r = parseInt(hex.substring(1, 3), 16);
+    let g = parseInt(hex.substring(3, 5), 16);
+    let b = parseInt(hex.substring(5, 7), 16);
     showRGBCode(box, r, g, b);
-    getHSLFromRGB(r, g, b);
+    getHSLFromRGB(box, r, g, b);
 }
 
-function getHSLFromRGB(r, g, b) {
-    let box = document.querySelector(`.original_color`);
+function getHSLFromRGB(box, r, g, b) {
     r /= 255;
     g /= 255;
     b /= 255;
@@ -98,17 +92,17 @@ function getAnalogousHSL(h, s, l) {
 }
 
 function processAnalogousHSL(dest, h, s, l) {
-    showAnalogousColor(dest, h, s, l);
-    getAnalogousRGB(dest, h, s, l);
+    let box = document.querySelector(`.alternative${dest}`);
+    showAnalogousColor(box, h, s, l);
+    getAnalogousRGB(box, h, s, l);
 }
 
-let rgb;
 
-function getAnalogousRGB(dest, h, s, l) {
-    let box = document.querySelector(`.alternative${dest}`);
-
+function getAnalogousRGB(box, h, s, l) {
     // Function 'HSLtoRGB' from:
     // https://github.com/scripturadesign/color/blob/303480c970bf74956e43166410cbdd26621abdc7/src/functions.php#L120
+
+    let rgb;
 
     s /= 100;
     l /= 100;
@@ -145,27 +139,22 @@ function getAnalogousRGB(dest, h, s, l) {
 }
 
 function getHexFromRGB(box, r, g, b) {
-    let hex = Number(r).toString(16) + Number(g).toString(16) + Number(b).toString(16);
-    showConvertedHexCode(box, hex);
+    let hex = "#" + Number(r).toString(16) + Number(g).toString(16) + Number(b).toString(16);
+    showHexCode(box, hex);
 }
 
 
 // ----- SHOW ALTERNATIVE COLORS -----
 
-function showAnalogousColor(dest, h, s, l) {
-    let box = document.querySelector(`.alternative${dest}`);
+function showAnalogousColor(box, h, s, l) {
     box.querySelector(".alternative_color").style.backgroundColor = `hsl(${h}, ${s}%, ${l}%`;
     showHSLCode(box, h, s, l);
 }
 
 // ----- SHOW COLOR CODES -----
 
-function showHexCode(box) {
-    box.querySelector(".hex").textContent = color;
-}
-
-function showConvertedHexCode(box, hex) {
-    box.querySelector(".hex").textContent = `#${hex}`;
+function showHexCode(box, hex) {
+    box.querySelector(".hex").textContent = hex;
 }
 
 function showRGBCode(box, r, g, b) {
