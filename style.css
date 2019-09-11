@@ -16,6 +16,16 @@ input {
     border: none;
 }
 
+.alternatives {
+    display: flex;
+}
+
+.alternative_color {
+    height: 200px;
+    width: 200px;
+    background-color: pink;
+}
+
 .display_value {
     height: 1rem;
 }

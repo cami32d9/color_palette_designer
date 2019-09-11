@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", start);
 // ----- VARIABLES -----
 
 const colorInput = document.querySelector("input");
+const hexDest = document.querySelector(".hex");
+const rgbDest = document.querySelector(".rgb");
+const hslDest = document.querySelector(".hsl");
+const alternativeColors = document.querySelectorAll(".alternative_color");
+
 let color;
 
 
@@ -79,20 +84,45 @@ function getHSL(r, g, b) {
     l = Math.round(l);
 
     showHSL(h, s, l);
+    showAnalogousHSL(h, s, l);
+}
+
+
+// ----- GET ALTERNATIVE COLOR CODES -----
+
+function getAnalogousHSL(h, s, l) {
+    h = h + 20;
+    let Analogous = `hsl(${h},${s}%,${l}%)`;
+    return Analogous;
+}
+
+function getRGBFromHSL () {
+
+}
+
+
+// ----- SHOW ALTERNATIVE COLORS -----
+
+function showAnalogousHSL(h, s, l) {
+    console.log(getAnalogousHSL(h, s, l));
+    alternativeColors.forEach(color => {
+        h = h + 20;
+        color.style.backgroundColor = `${getAnalogousHSL(h, s, l)}`;
+    });
 }
 
 
 // ----- SHOW COLOR CODES -----
 
 function showHex() {
-    document.querySelector(".hex").textContent = color;
+    hexDest.textContent = color;
 }
 
 function showRGB(r, g, b) {
-    document.querySelector(".rgb").textContent = `R: ${r} | G: ${g} | B: ${b}`;
+    rgbDest.textContent = `R: ${r} | G: ${g} | B: ${b}`;
 }
 
 function showHSL(h, s, l) {
     // Adds degree and percent symbols for precision
-    document.querySelector(".hsl").textContent = `H: ${h}° | S: ${s}% | L: ${l}%`;
+    hslDest.textContent = `H: ${h}° | S: ${s}% | L: ${l}%`;
 }
