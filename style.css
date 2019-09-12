@@ -1,40 +1,52 @@
 body {
-    background: whitesmoke;
+    margin: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: sans-serif;
 }
 
 .color_display {
-    background-color: lightgrey;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 50px 0;
 }
 
-.color {
-    background-color: darkseagreen;
-    margin: 2px;
+h1 {
+    margin-top: 50px;
+}
+
+h2 {
+    width: 100%;
+    text-align: center;
+    line-height: 4rem;
+    margin: 0;
 }
 
 input {
     height: 200px;
-    width: 200px;
+    width: 300px;
     border: none;
     padding: 0;
 }
 
-.original_color {
-    margin-left: 10px;
-    margin-right: 10px;
-}
 
 .alternatives {
     display: flex;
 }
 
 .alternative_color {
+    margin-top: 4rem;
     height: 200px;
-    width: 200px;
+    width: 300px;
     background-color: pink;
+}
+
+.alternative3 .alternative_color {
+    margin-top: 0;
 }
 
 .display_value {
@@ -43,4 +55,8 @@ input {
 
 .code_display {
     padding: 5px;
+}
+
+.original_color, .alternative3 {
+    background-color: rgba(0, 0, 0, 0.1);
 }

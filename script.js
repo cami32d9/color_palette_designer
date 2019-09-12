@@ -87,6 +87,7 @@ function getHSLFromRGB(box, r, g, b) {
     l = Math.round(l);
 
     showHSLCode(box, h, s, l);
+    setBackgroundColor(h, s);
 
     // Starts process of finding analogous colors
     getAnalogousHSL(h, s, l);
@@ -101,8 +102,9 @@ function getAnalogousHSL(h, s, l) {
     // The second parameter, h (+/- x) is the h-value from the original, with 20 degrees' difference for each color.
     processAnalogousHSL(1, h - 40, s, l);
     processAnalogousHSL(2, h - 20, s, l);
-    processAnalogousHSL(3, h + 20, s, l);
-    processAnalogousHSL(4, h + 40, s, l);
+    processAnalogousHSL(3, h, s, l);
+    processAnalogousHSL(4, h + 20, s, l);
+    processAnalogousHSL(5, h + 40, s, l);
 }
 
 function processAnalogousHSL(dest, h, s, l) {
@@ -168,6 +170,10 @@ function getHexFromRGB(box, r, g, b) {
 
 function showAnalogousColor(box, h, s, l) {
     box.querySelector(".alternative_color").style.backgroundColor = `hsl(${h}, ${s}%, ${l}%`;
+}
+
+function setBackgroundColor(h, s) {
+    document.querySelector("body").style.backgroundColor = `hsl(${h}, ${s}%, 80%`;
 }
 
 // ----- SHOW COLOR CODES -----
