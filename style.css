@@ -12,7 +12,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 50px 0;
+    width: 100%;
 }
 
 h1 {
@@ -28,7 +28,7 @@ h2 {
 
 input {
     height: 200px;
-    width: 300px;
+    width: 100%;
     border: none;
     padding: 0;
 }
@@ -36,12 +36,13 @@ input {
 
 .alternatives {
     display: flex;
+    width: 100%;
 }
 
 .alternative_color {
     margin-top: 4rem;
     height: 200px;
-    width: 300px;
+    width: 100%
     background-color: pink;
 }
 
@@ -59,4 +60,28 @@ input {
 
 .original_color, .alternative3 {
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+.color {
+    width: 20%;
+}
+
+@media screen and (max-width: 1023px) {
+    .alternatives {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .color {
+        width: 100%;
+    }
+
+    .alternative_color {
+        margin-top: 20px;
+    }
+
+    h1, p {
+        margin: 20px;
+    }
+
 }
